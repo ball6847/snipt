@@ -1,4 +1,4 @@
-from registration.backends.default.views import RegistrationView
+from registration.backends.simple.views import RegistrationView
 from utils.forms import SniptRegistrationForm
 
 class SniptRegistrationView(RegistrationView):

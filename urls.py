@@ -58,7 +58,7 @@ urlpatterns = patterns('',
 
     url(r'^api/public/lexer/$', lexers),
 
-    url(r'^api/', include(public_api.urls)),
+    #url(r'^api/', include(public_api.urls)),
     url(r'^api/', include(private_api.urls)),
 
     url(r'^search/$', search),
