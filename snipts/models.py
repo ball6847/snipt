@@ -125,9 +125,6 @@ class Snipt(models.Model):
                             .replace("\\", "\\\\")
                             .replace('background: #202020', ''))
         self.embedded = embedded
-        
-        # make this supports more languages
-        self.stylized = unicode(self.stylized);
 
         return super(Snipt, self).save(*args, **kwargs)
 
