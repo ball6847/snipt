@@ -61,8 +61,8 @@ cat media/js/libs/highlight.js \
     media/js/src/pro.js \
     > media/js/pro-all.min.js
 
-git add /Users/Nick/Code/snipt/media/css/pro.css
-git add /Users/Nick/Code/snipt/media/css/snipt.css
-git add /Users/Nick/Code/snipt/media/js/snipt-all.min.js
-git add /Users/Nick/Code/snipt/media/js/pro-all.min.js
-git add /Users/Nick/Code/snipt/media/js/src/modules/site.min.js
+git add media/css/pro.css
+git add media/css/snipt.css
+git add media/js/snipt-all.min.js
+git add media/js/pro-all.min.js
+git add media/js/src/modules/site.min.js
