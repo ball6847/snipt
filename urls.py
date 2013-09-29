@@ -74,3 +74,5 @@ urlpatterns = patterns('',
 if settings.DEBUG:
     urlpatterns = urlpatterns + static('/media/',
         document_root=os.path.join(settings.BASE_PATH, 'media'))
+    urlpatterns = urlpatterns + static('/static/',
+        document_root=os.path.join(settings.BASE_PATH, 'media'))
