@@ -5,6 +5,8 @@ venv
 *.un~
 *.pgdump
 *.pyc
+
+# komodoedit project files
 *.komodoproject
 .komodotools
 
