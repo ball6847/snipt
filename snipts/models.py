@@ -3,6 +3,7 @@ from annoying.functions import get_object_or_None
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.db import models
+from django.core.urlresolvers import reverse
 
 from taggit.managers import TaggableManager
 from taggit.utils import edit_string_for_tags
@@ -60,7 +61,7 @@ class Snipt(models.Model):
             # Snipt embeds
             for match in re.findall('\[\[(\w{32})\]\]', self.stylized):
                 self.stylized = self.stylized.replace('[[' + str(match) + ']]',
-                    '<script type="text/javascript" src="https://snipt.net/embed/{}/?snipt"></script><div id="snipt-embed-{}"></div>'.format(match, match))
+                    '<script type="text/javascript" src="{}?snipt"></script><div id="snipt-embed-{}"></div>'.format(reverse('snipts.views.embed', kwargs={'snipt_key': match}), match))
 
             # YouTube embeds
             for match in re.findall('\[\[youtube-(\w{11})\-(\d+)x(\d+)\]\]', self.stylized):
@@ -124,6 +125,9 @@ class Snipt(models.Model):
                             .replace("\\", "\\\\")
                             .replace('background: #202020', ''))
         self.embedded = embedded
+        
+        # make this supports more languages
+        self.stylized = unicode(self.stylized);
 
         return super(Snipt, self).save(*args, **kwargs)
 
@@ -146,7 +150,7 @@ class Snipt(models.Model):
     def get_absolute_url(self):
 
         if self.blog_post:
-            if self.user.profile.blog_domain:
+            if self.user.profile.is_pro and self.user.profile.blog_domain:
                 return u'http://{}/{}/'.format(self.user.profile.blog_domain.split(' ')[0], self.slug)
             else:
                 return u'https://{}.snipt.net/{}/'.format(self.user.username.replace('_', '-'), self.slug)
@@ -162,7 +166,7 @@ class Snipt(models.Model):
     def get_full_absolute_url(self):
 
         if self.blog_post:
-            if self.user.profile.blog_domain:
+            if self.user.profile.is_pro and self.user.profile.blog_domain:
                 return u'http://{}/{}/'.format(self.user.profile.blog_domain.split(' ')[0], self.slug)
             else:
                 return u'https://{}.snipt.net/{}/'.format(self.user.username, self.slug)
