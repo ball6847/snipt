@@ -1,38 +1,45 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
-
+from django.conf import settings
 from annoying.functions import get_object_or_None
-
+import re
 
 class BlogMiddleware:
     def process_request(self, request):
         request.blog_user = None
-
-        host = request.META.get('HTTP_HOST', '')
-        host_s = host.replace('www.', '').split('.')
-
-        if host != 'snipt.net' and host != 'snipt.localhost':
-            if len(host_s) > 2:
-                if host_s[1] == 'snipt':
-
-                    blog_user = ''.join(host_s[:-2])
-
-                    if '-' in blog_user:
-                        request.blog_user = get_object_or_None(User, username__iexact=blog_user)
-
-                        if request.blog_user is None:
-                            request.blog_user = get_object_or_404(User, username__iexact=blog_user.replace('-', '_'))
-                    else:
-                        request.blog_user = get_object_or_404(User, username__iexact=blog_user)
-
-            if request.blog_user is None:
-                pro_users = User.objects.filter(userprofile__is_pro=True)
-
-                for pro_user in pro_users:
-                    if pro_user.profile.blog_domain:
-                        if host in pro_user.profile.blog_domain.split(' '):
-                            request.blog_user = pro_user
-
-                            if host != pro_user.profile.get_primary_blog_domain():
-                                return HttpResponseRedirect('http://' + pro_user.profile.get_primary_blog_domain())
+        
+        # catch HTTP_HOST
+        host = request.META.get('HTTP_HOST')
+        
+        # if you deploy in port other than 80, HTTP_HOST may contains that port
+        # and we don't want it to appear here
+        host = host.split(':')[0]
+        
+        # blog_user parsing is not neccessary, since domain is match with settings
+        if host == settings.DOMAIN:
+            return
+        
+        # try extracting blog_user from domain
+        matched = re.search('^([^\.]+)\.' + re.escape(settings.DOMAIN) + '$', host)
+        
+        # we got it!
+        if (matched):
+            blog_user = matched.group(1)
+            
+            # now resolve blog_user to User Model
+            if '-' in blog_user:
+                request.blog_user = get_object_or_None(User, username__iexact=blog_user)
+                
+                if request.blog_user is None:
+                    request.blog_user = get_object_or_404(User, username__iexact=blog_user.replace('-', '_'))
+                return
+                
+            request.blog_user = get_object_or_404(User, username__iexact=blog_user)
+            return
+            
+        # try searching for domain records
+        # i prefer not letting user has multiple domains for now, since current schema will kill server
+        # @todo support multiple domains per user, using separated domain object
+        request.blog_user = get_object_or_404(User, userprofile__is_pro=True, userprofile__blog_domain=host)
+        return
