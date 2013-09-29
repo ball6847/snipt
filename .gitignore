@@ -5,6 +5,8 @@ venv
 *.un~
 *.pgdump
 *.pyc
+*.komodoproject
+.komodotools
 
 settings_local.py
 media/cache
