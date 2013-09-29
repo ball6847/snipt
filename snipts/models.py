@@ -66,12 +66,12 @@ class Snipt(models.Model):
             # YouTube embeds
             for match in re.findall('\[\[youtube-(\w{11})\-(\d+)x(\d+)\]\]', self.stylized):
                 self.stylized = self.stylized.replace('[[youtube-{}-{}x{}]]'.format(str(match[0]), str(match[1]), str(match[2])),
-                    '<iframe width="{}" height="{}" src="https://www.youtube.com/embed/{}" frameborder="0" allowfullscreen></iframe>'.format(match[1], match[2], match[0]))
+                    '<iframe width="{}" height="{}" src="http://www.youtube.com/embed/{}" frameborder="0" allowfullscreen></iframe>'.format(match[1], match[2], match[0]))
 
             # Vimeo embeds
             for match in re.findall('\[\[vimeo-(\d+)\-(\d+)x(\d+)\]\]', self.stylized):
                 self.stylized = self.stylized.replace('[[vimeo-{}-{}x{}]]'.format(str(match[0]), str(match[1]), str(match[2])),
-                    '<iframe src="https://player.vimeo.com/video/{}" width="{}" height="{}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'.format(match[0], match[1], match[2]))
+                    '<iframe src="http://player.vimeo.com/video/{}" width="{}" height="{}" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>'.format(match[0], match[1], match[2]))
 
             # Tweet embeds
             for match in re.findall('\[\[tweet-(\d+)\]\]', self.stylized):
@@ -150,7 +150,7 @@ class Snipt(models.Model):
             if self.user.profile.is_pro and self.user.profile.blog_domain:
                 return u'http://{}/{}/'.format(self.user.profile.blog_domain.split(' ')[0], self.slug)
             else:
-                return u'https://{}.{}/{}/'.format(
+                return u'http://{}.{}/{}/'.format(
                     self.user.username.replace('_', '-'),
                     settings.DOMAIN,
                     self.slug)
@@ -169,7 +169,7 @@ class Snipt(models.Model):
             if self.user.profile.is_pro and self.user.profile.blog_domain:
                 return u'http://{}/{}/'.format(self.user.profile.blog_domain.split(' ')[0], self.slug)
             else:
-                return u'https://{}.{}/{}/'.format(
+                return u'http://{}.{}/{}/'.format(
                     self.user.username,
                     settings.DOMAIN,
                     self.slug)
