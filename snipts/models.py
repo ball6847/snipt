@@ -150,7 +150,10 @@ class Snipt(models.Model):
             if self.user.profile.is_pro and self.user.profile.blog_domain:
                 return u'http://{}/{}/'.format(self.user.profile.blog_domain.split(' ')[0], self.slug)
             else:
-                return u'https://{}.snipt.net/{}/'.format(self.user.username.replace('_', '-'), self.slug)
+                return u'https://{}.{}/{}/'.format(
+                    self.user.username.replace('_', '-'),
+                    settings.DOMAIN,
+                    self.slug)
 
         if self.custom_slug:
             return u'/{}/'.format(self.custom_slug)
@@ -166,12 +169,13 @@ class Snipt(models.Model):
             if self.user.profile.is_pro and self.user.profile.blog_domain:
                 return u'http://{}/{}/'.format(self.user.profile.blog_domain.split(' ')[0], self.slug)
             else:
-                return u'https://{}.snipt.net/{}/'.format(self.user.username, self.slug)
+                return u'https://{}.{}/{}/'.format(
+                    self.user.username,
+                    settings.DOMAIN,
+                    self.slug)
 
-        if settings.DEBUG:
-            root = 'http://snipt.localhost'
-        else:
-            root = 'https://snipt.net'
+        # @todo more supports on ssl
+        root = 'http://' + settings.DOMAIN
 
         if self.public:
             return u'{}/{}/{}/'.format(root, self.user.username, self.slug)
@@ -193,28 +197,22 @@ class Snipt(models.Model):
             else:
                 filename = u'{}.txt'.format(self.slug)
 
-        if settings.DEBUG:
-            root = 'http://snipt.localhost'
-        else:
-            root = 'https://snipt.net'
+        # @todo more supports on ssl
+        root = 'http://' + settings.DOMAIN
 
         return u'{}/download/{}/{}'.format(root, self.key, filename)
 
     def get_embed_url(self):
 
-        if settings.DEBUG:
-            root = 'http://snipt.localhost'
-        else:
-            root = 'https://snipt.net'
+        # @todo more supports on ssl
+        root = 'http://' + settings.DOMAIN
 
         return '{}/embed/{}/'.format(root, self.key)
 
     def get_raw_url(self):
 
-        if settings.DEBUG:
-            root = 'http://snipt.localhost'
-        else:
-            root = 'https://snipt.net'
+        # @todo more supports on ssl
+        root = 'http://' + settings.DOMAIN
 
         return '{}/raw/{}/'.format(root, self.key)
 
