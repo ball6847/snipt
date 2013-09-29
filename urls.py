@@ -66,7 +66,7 @@ urlpatterns = patterns('',
     url(r'^register/$', lambda x: HttpResponseRedirect('/signup/')),
     url(r'^signup/$', SniptRegistrationView.as_view(),
         name='registration_register'),
-    url(r'', include('registration.backends.default.urls')),
+    url(r'', include('registration.backends.simple.urls')),
 
     url(r'^', include('snipts.urls')),
 )
