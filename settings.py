@@ -6,6 +6,8 @@ DEBUG = True
 
 BASE_PATH = os.path.dirname(__file__)
 
+DOMAIN = 'localhost'
+
 ADMINS = (
     ('Name', 'name@domain.com'),
 )
