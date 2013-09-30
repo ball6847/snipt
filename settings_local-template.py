@@ -3,6 +3,8 @@ from settings import INSTALLED_APPS, MIDDLEWARE_CLASSES
 
 DEBUG = True
 
+DOMAIN = 'snipt.net'
+
 TEMPLATE_DEBUG = DEBUG
 
 BASE_PATH = os.path.dirname(__file__)
