@@ -140,9 +140,9 @@ AUTHENTICATION_BACKENDS = (
     'utils.backends.EmailOrUsernameModelBackend',
 )
 
-ROOT_URLCONF = 'snipt.urls'
-
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+
+ROOT_URLCONF = os.path.basename(PROJECT_PATH) + '.urls'
 
 TEMPLATE_DIRS = (
     os.path.join(PROJECT_PATH, 'templates')
