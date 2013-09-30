@@ -60,26 +60,28 @@ CSRF_COOKIE_SECURE = False
 SESSION_COOKIE_DOMAIN = '.snipt.net'
 ALLOWED_HOSTS = ['*']
 
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-        'URL': 'http://127.0.0.1:9200/',
-        'INDEX_NAME': 'haystack',
-    },
-}
+""" uncomment this if you need Elasticsearch """
+#HAYSTACK_CONNECTIONS = {
+#    'default': {
+#        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+#        'URL': 'http://127.0.0.1:9200/',
+#        'INDEX_NAME': 'haystack',
+#    },
+#}
 
 INSTALLED_APPS += (
     'debug_toolbar',
     'django_extensions',
-    'raven.contrib.django.raven_compat',
+    #'raven.contrib.django.raven_compat',
 )
 
 RAVEN_CONFIG = {
     'dsn': '',
 }
 
-MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
-  'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
-)
+""" uncomment this if you need Raven """
+#MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (
+#  'raven.contrib.django.raven_compat.middleware.Sentry404CatchMiddleware',
+#)
 
 INTERCOM_SECRET_KEY = ''
