@@ -57,7 +57,7 @@ ENV_HOST = 'user@domain.com:22'
 USE_HTTPS = False
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_DOMAIN = '.snipt.net'
+SESSION_COOKIE_DOMAIN = '.' + DOMAIN
 ALLOWED_HOSTS = ['*']
 
 """ uncomment this if you need Elasticsearch """
