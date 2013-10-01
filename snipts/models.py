@@ -126,6 +126,8 @@ class Snipt(models.Model):
                             .replace('background: #202020', ''))
         self.embedded = embedded
 
+        self.stylized = unicode(self.stylized)
+
         return super(Snipt, self).save(*args, **kwargs)
 
     def __unicode__(self):
