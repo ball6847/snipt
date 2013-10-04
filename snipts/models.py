@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from taggit.managers import TaggableManager
 from taggit.utils import edit_string_for_tags
 
-from markdown_deux import markdown
+from .markdown.renderer import markdown
 from pygments import highlight
 from pygments.lexers import get_lexer_by_name
 from pygments.util import ClassNotFound
@@ -56,7 +56,7 @@ class Snipt(models.Model):
             self.key = md5.new(self.slug + str(datetime.datetime.now()) + str(random.random())).hexdigest()
 
         if self.lexer == 'markdown':
-            self.stylized = markdown(self.code, 'default')
+            self.stylized = markdown(self.code)
 
             # Snipt embeds
             for match in re.findall('\[\[(\w{32})\]\]', self.stylized):
@@ -139,7 +139,7 @@ class Snipt(models.Model):
     def get_stylized_min(self):
         if self.stylized_min is None:
             if self.lexer == 'markdown':
-                self.stylized_min = markdown(self.code[:1000], 'default')
+                self.stylized_min = markdown(self.code[:1000])
             else:
                 self.stylized_min = highlight(self.code[:1000],
                                           get_lexer_by_name(self.lexer, encoding='UTF-8'),

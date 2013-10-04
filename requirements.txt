@@ -11,6 +11,7 @@ django-tastypie
 django-taggit
 django-templatetag-sugar
 fabric
+houdini.py
 gunicorn
 lxml
 mimeparse
