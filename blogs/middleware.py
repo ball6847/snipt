@@ -10,24 +10,22 @@ class BlogMiddleware:
         request.blog_user = None
         
         """ catch HTTP_HOST """
-        host = request.META.get('HTTP_HOST')
-        
+        host = request.META.get('HTTP_X_FORWARDED_HOST') or request.META.get('HTTP_HOST')
+ 
         """
         if you deploy in port other than 80,
         HTTP_HOST may contains that port
         and we don't want it to appear here
         """
         host = host.split(':')[0]
-
-	print host
  
         """ blog_user parsing is not neccessary, since domain is match with settings """
-        if host in ('localhost', settings.DOMAIN) + settings.INTERNAL_IPS:
+        if host in ['localhost', settings.DOMAIN]:
             return
         
         """ try extracting blog_user from domain """
         matched = re.search('^([^\.]+)\.' + re.escape(settings.DOMAIN) + '$', host)
-        
+
         """ we got it! """
         if (matched):
             blog_user = matched.group(1)
