@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.conf import settings
 from annoying.functions import get_object_or_None
-import re
+import re, os
 
 class BlogMiddleware:
     def process_request(self, request):
@@ -18,9 +18,11 @@ class BlogMiddleware:
         and we don't want it to appear here
         """
         host = host.split(':')[0]
-        
+
+	print host
+ 
         """ blog_user parsing is not neccessary, since domain is match with settings """
-        if host == 'localhost' or host == settings.DOMAIN:
+        if host in ('localhost', settings.DOMAIN) + settings.INTERNAL_IPS:
             return
         
         """ try extracting blog_user from domain """
