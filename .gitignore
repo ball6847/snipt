@@ -12,4 +12,5 @@
 
 /snipt/settings_local.py
 /public/media/cache
-/public/static
+/public/static/*
+!/public/static/.gitkeep
