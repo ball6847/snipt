@@ -11,5 +11,5 @@
 .komodotools
 
 /snipts/settings_local.py
-/media/cache
-/static
+/public/media/cache
+/public/static
