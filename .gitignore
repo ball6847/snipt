@@ -10,6 +10,6 @@
 *.komodoproject
 .komodotools
 
-/snipts/settings_local.py
+/snipt/settings_local.py
 /public/media/cache
 /public/static
