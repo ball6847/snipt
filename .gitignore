@@ -1,4 +1,4 @@
-venv
+/venv
 .gunicorn.pid
 *.log
 .sass-cache
@@ -10,7 +10,6 @@ venv
 *.komodoproject
 .komodotools
 
-settings_local.py
-media/cache
-static
-tags
+/snipts/settings_local.py
+/media/cache
+/static
