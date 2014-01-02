@@ -20,10 +20,10 @@ class BlogMiddleware:
         host = host.split(':')[0]
  
         """ blog_user parsing is not neccessary, since domain is match with settings """
-        if host in ['localhost', settings.DOMAIN]:
+        if host in ['127.0.0.1', 'localhost', settings.DOMAIN]:
             return
         
-        """ try extracting blog_user from domain """
+        """ try extracting blog_user from domain eg. username.snipt.net """
         matched = re.search('^([^\.]+)\.' + re.escape(settings.DOMAIN) + '$', host)
 
         """ we got it! """

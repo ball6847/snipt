@@ -4,14 +4,14 @@ from django.conf.urls.static import static
 from django.views.generic import TemplateView
 from django.http import HttpResponseRedirect
 from django.contrib import admin
-from apps.snipts.api import (PublicSniptResource, PublicTagResource,
+from snipts.api import (PublicSniptResource, PublicTagResource,
                         PublicUserResource, PrivateSniptResource,
                         PrivateFavoriteResource, PrivateUserProfileResource,
                         PrivateTagResource, PrivateUserResource)
-from apps.snipts.views import search
+from snipts.views import search
 from tastypie.api import Api
-from apps.utils.views import SniptRegistrationView
-from apps.jobs.views import jobs, jobs_json
+from utils.views import SniptRegistrationView
+from jobs.views import jobs, jobs_json
 from .views import (homepage, lexers, login_redirect, pro_signup, sitemap, tags,
                    pro_signup_complete)
 
@@ -34,6 +34,7 @@ private_api.register(PrivateUserProfileResource())
 urlpatterns = patterns('',
     url(r'^$', homepage),
     url(r'^login-redirect/$', login_redirect),
+    url(r'^password/change/$', 'django.contrib.auth.views.password_change', {'post_change_redirect': 'auth_password_change_done'}),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^404/$', TemplateView.as_view(template_name='404.html')),
     url(r'^500/$', TemplateView.as_view(template_name='500.html')),
@@ -46,7 +47,7 @@ urlpatterns = patterns('',
     url(r'^pro/$', TemplateView.as_view(template_name='pro.html')),
     url(r'^pro/signup/$', pro_signup),
     url(r'^pro/signup/complete/$', pro_signup_complete),
-    url(r'^account/', include('apps.accounts.urls')),
+    url(r'^account/', include('accounts.urls')),
     url(r'^api/public/lexer/$', lexers),
     url(r'^api/', include(public_api.urls)),
     url(r'^api/', include(private_api.urls)),
@@ -54,7 +55,7 @@ urlpatterns = patterns('',
     url(r'^register/$', lambda x: HttpResponseRedirect('/signup/')),
     url(r'^signup/$', SniptRegistrationView.as_view(), name='registration_register'),
     url(r'', include('registration.backends.simple.urls')),
-    url(r'^', include('apps.snipts.urls')),
+    url(r'^', include('snipts.urls')),
 )
 
 if settings.DEBUG:

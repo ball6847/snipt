@@ -1,14 +1,14 @@
-from apps.accounts.models import UserProfile
-from apps.blogs.views import blog_list
+from accounts.models import UserProfile
+from blogs.views import blog_list
 from django.http import HttpResponseRedirect, HttpResponseBadRequest
 from django.contrib.auth.decorators import login_required
 from annoying.decorators import ajax_request, render_to
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-from apps.snipts.utils import get_lexers_list
+from snipts.utils import get_lexers_list
 from django.contrib.auth.models import User
 from django.db.models import Count
-from apps.snipts.models import Snipt
+from snipts.models import Snipt
 from taggit.models import Tag
 
 import hashlib

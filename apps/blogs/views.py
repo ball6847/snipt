@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from annoying.functions import get_object_or_None
 from django.template import RequestContext
 
-from apps.snipts.models import Snipt
+from snipts.models import Snipt
 
 import datetime
 

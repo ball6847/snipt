@@ -101,11 +101,11 @@ INSTALLED_APPS = (
     'tastypie',
     'typogrify',
     # project apps
-    'apps.accounts',
-    'apps.blogs',
-    'apps.jobs',
-    'apps.snipts',
-    'apps.utils',
+    'accounts',
+    'blogs',
+    'jobs',
+    'snipts',
+    'utils',
 )
 
 # List of callables that know how to import templates from various sources.
@@ -132,11 +132,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'pagination.middleware.PaginationMiddleware',
     'snipt.middleware.MultipleProxyMiddleware',
-    'apps.blogs.middleware.BlogMiddleware',
+    'blogs.middleware.BlogMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
-    'apps.utils.backends.EmailOrUsernameModelBackend',
+    'utils.backends.EmailOrUsernameModelBackend',
 )
 
 PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
@@ -200,7 +200,7 @@ ABSOLUTE_URL_OVERRIDES = {
 }
 
 # Accounts
-AUTH_PROFILE_MODULE = 'apps.accounts.UserProfile'
+AUTH_PROFILE_MODULE = 'accounts.UserProfile'
 
 # API
 TASTYPIE_CANNED_ERROR = "There was an error with your request. The site developers have a record of this error, please email api@snipt.net and we'll help you out."

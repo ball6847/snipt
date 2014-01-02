@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
-from apps.snipts.models import Snipt
+from snipts.models import Snipt
 
 class UserProfile(models.Model):
 

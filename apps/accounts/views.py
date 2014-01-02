@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from annoying.decorators import render_to
-from apps.snipts.models import Snipt
+from snipts.models import Snipt
+
+from django.contrib.auth.views import password_change
 
 @login_required
 @render_to('account.html')

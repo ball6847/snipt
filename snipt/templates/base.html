@@ -197,46 +197,8 @@
         <section class="main group" id="main">
             {% block aside %}
                 <aside class="main">
-                    <!--<div class="save-nate">-->
-                        <!--<a href="http://www.indiegogo.com/projects/i-am-going-to-survive">Save a dev: Chloe</a>-->
-                    <!--</div>-->
                     {% block aside-top %}{% endblock %}
                     {% block aside-inner %}{% endblock %}
-                    <nav class="footer">
-                        <ul>
-                            <li class="api">
-                                <a href="/api/" {% if '/api/' in request.path %}class="active"{% endif %}><span>API</span></a>
-                            </li>
-                            <li class="twitter">
-                                <a href="https://twitter.com/#!/snipt"><span>@snipt</span></a>
-                            </li>
-                            {% if not request.user.profile.is_pro %}
-                                <li class="pro">
-                                    <a href="/pro/"><span>Go Pro</span></a>
-                                </li>
-                            {% endif %}
-                            <li class="blog">
-                                <a href="https://blog.snipt.net/"><span>Snipt Blog</span></a>
-                            </li>
-                            <li class="blog">
-                                <a href="/blogging/" {% if '/blogging/' in request.path %}class="active"{% endif %}><span>Blogging on Snipt</span></a>
-                            </li>
-                            <li class="roadmap">
-                                <a href="https://github.com/nicksergeant/snipt/"><span>Open source on GitHub</span></a>
-                            </li>
-                            <li class="roadmap">
-                                <a href="https://github.com/nicksergeant/snipt/issues?state=open"><span>Bugs & feature requests</span></a>
-                            </li>
-                            <li class="roadmap">
-                                <a href="http://getsentry.com/"><span>Shipped with confidence</span></a>
-                            </li>
-                        </ul>
-                    </nav>
-                    <div class="linode">
-                        <a href="http://www.linode.com/" title="Linode - Xen VPS Hosting. Deploy and Manage Linux Virtual Servers in the Linode Cloud." target="blank">
-                            <span>Proudly hosted on</span>
-                        </a>
-                    </div>
                 </aside>
             {% endblock %}
             <div class="inner">

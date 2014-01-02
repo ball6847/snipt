@@ -9,7 +9,7 @@ from tastypie.validation import Validation
 from tastypie.models import create_api_key
 from .models import Favorite, Snipt
 from haystack.query import SearchQuerySet
-from apps.accounts.models import UserProfile
+from accounts.models import UserProfile
 from tastypie.cache import SimpleCache
 from tastypie.fields import ListField
 from taggit.models import Tag

@@ -8,7 +8,7 @@ from django.template import RequestContext
 from annoying.decorators import render_to
 from .models import Favorite, Snipt
 from django.db.models import Count
-from apps.blogs.views import blog_list
+from blogs.views import blog_list
 from django.conf import settings
 from django.db.models import Q
 from taggit.models import Tag
