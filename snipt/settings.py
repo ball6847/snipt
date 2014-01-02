@@ -208,9 +208,12 @@ TASTYPIE_CANNED_ERROR = "There was an error with your request. The site develope
 # COOKIE SESSION and CSRF
 SESSION_COOKIE_SECURE = False
 CSRF_COOKIE_SECURE = False
-SESSION_COOKIE_DOMAIN = '.' + DOMAIN
 
 try:
     from .settings_local import *
 except ImportError:
     pass
+
+# settings.DOMAIN can override in settings_local,
+# we need to update the cookie domain here again
+SESSION_COOKIE_DOMAIN = '.' + DOMAIN
