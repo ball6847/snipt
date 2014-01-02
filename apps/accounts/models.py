@@ -2,6 +2,7 @@ from django.contrib.auth.models import User
 from django.db import models
 from snipts.models import Snipt
 from django.conf import settings
+import os
 
 class UserProfile(models.Model):
 
@@ -72,18 +73,30 @@ class UserProfile(models.Model):
             return self.blog_domain.split(' ')[0]
 
     def get_user_profile_url(self):
+        
+        if settings.USE_HTTPS:
+            url = 'https://'
+        else:
+            url = 'http://'
 
         # If the user has a blog domain, use that.
         if self.blog_domain:
-            url = 'http://{}'.format(self.get_primary_blog_domain())
+            url += self.get_primary_blog_domain()
 
         # Otherwise, if they have blog posts, use their Snipt blog URL.
         elif self.get_blog_posts():
-            url = 'https://{}.{}/'.format(self.user.username, settings.DOMAIN)
+            url += self.user.username +'.'+ settings.DOMAIN
 
         # Otherwise, use their regular Snipt profile page.
         else:
-            url = 'https://{}/{}/'.format(settings.DOMAIN, self.user.username)
+            url += settings.DOMAIN +'/'+ self.user.username
+        
+        # check running port, if not forwarded by web server
+        if os.environ['SNIPT_PORT']:
+            url += ':' + os.environ['SNIPT_PORT']
+        
+        # with trailing slash is look nice
+        url += '/'
 
         return url
 

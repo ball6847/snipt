@@ -17,7 +17,13 @@ class BlogMiddleware:
         HTTP_HOST may contains that port
         and we don't want it to appear here
         """
-        host = host.split(':')[0]
+        host, port = host.split(':')
+        
+        if not port:
+            port = 80
+            
+        " Setup ENV, we may need it in our app "
+        os.environ['SNIPT_HOSTNAME'], os.environ['SNIPT_PORT'] = host, port
  
         """ blog_user parsing is not neccessary, since domain is match with settings """
         if host in ['127.0.0.1', 'localhost', settings.DOMAIN]:
