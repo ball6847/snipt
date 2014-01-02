@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 from snipts.models import Snipt
+from django.conf import settings
 
 class UserProfile(models.Model):
 
@@ -78,11 +79,11 @@ class UserProfile(models.Model):
 
         # Otherwise, if they have blog posts, use their Snipt blog URL.
         elif self.get_blog_posts():
-            url = 'https://{}.snipt.net/'.format(self.user.username)
+            url = 'https://{}.{}/'.format(self.user.username, settings.DOMAIN)
 
         # Otherwise, use their regular Snipt profile page.
         else:
-            url = 'https://snipt.net/{}/'.format(self.user.username)
+            url = 'https://{}/{}/'.format(settings.DOMAIN, self.user.username)
 
         return url
 
